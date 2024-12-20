@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Water Text</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
+        body {
+            margin: 0;
+            font-family: "Mona Sans", sans-serif;
+        }
+
+        .lava-wave-bg {
+            background: #ffffff;
+        }
+
+        .lava-wave {
+            display: flex;
+            justify-content: end;
+            align-items: end;
+            filter: url(#goo);
+            width: 100%;
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lava-wave a,
+        .lava-wave a xmp {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 96px;
+            font-size: 96px;
+            text-align: center;
+            margin: auto;
+            color: #000000 !important;
+            z-index: 1;
+            transition: 0.3s;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .lava-wave a:hover {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            transition: 0.3s;
+        }
+
+        .lava-wave-panel {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+        }
+
+        .lava-wave-panel .wave {
+            opacity: 1;
+            animation: rotate 4s ease-in-out infinite;
+            width: 1vw;
+            height: 80px;
+            transform: scaleY(1);
+            transform-origin: bottom;
+        }
+
+        @keyframes rotate {
+            50% {
+                transform: scaleY(1.5);
+            }
+        }
+
+    </style>
+</head>
+<body>
+   <div class="lava-wave-bg">
+        <div class="lava-wave">
+            <a href="https://bento.me/thekishanmodi" target="_blank">#thekishanmodi</a>
+            <div class="lava-wave-panel"></div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <defs>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"></feGaussianBlur>
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                                       result="goo"></feColorMatrix>
+                        <feBlend in="SourceGraphic" in2="goo"></feBlend>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        const styleSheet = document.createElement('style');
+        document.head.appendChild(styleSheet);
+
+        const container = document.querySelector('.lava-wave-panel');
+        const totalDivs = 200; // Total number of divs
+        const gradientColors = ['#FFE678', '#F3BC5A']; // Define the gradient colors
+        const gradientWidth = totalDivs * 100; // Total width for the gradient (200 divs with 100% width for each)
+        
+        let animationDelay = 10; // Start animation delay at 10ms
+
+        // Create a gradient rule for the background that spans all divs
+        for (let i = 1; i <= totalDivs; i++) {
+            const backgroundPosition = ((i - 1) * 100) / gradientWidth * 100; // Position the gradient for each div
+
+            const rule = `.lava-wave-panel .wave:nth-child(${i}) { 
+                background: linear-gradient(to right, ${gradientColors[0]}, ${gradientColors[1]});
+                background-size: ${gradientWidth}% 100%; /* Span the entire width of the divs */
+                background-position: ${backgroundPosition}% 0%; /* Adjust the gradient position for each div */
+                animation-delay: ${animationDelay}ms;
+            }`;
+
+            styleSheet.sheet.insertRule(rule, styleSheet.sheet.cssRules.length);
+
+            // Create and append the div to the container
+            const waveDiv = document.createElement('div');
+            waveDiv.className = 'wave';
+            container.appendChild(waveDiv);
+
+            // Increment animation delay by 20ms for each div
+            animationDelay += 20;
+        }
+    </script>
+</body>
+</html>
